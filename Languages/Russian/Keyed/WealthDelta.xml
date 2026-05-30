@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<!-- Period tabs -->
+	<WD_Now>Сегодня</WD_Now>
+	<WD_DaysAgo>{0} дн. назад</WD_DaysAgo>
+	<WD_Quadrum>Квадрум</WD_Quadrum>
+	<WD_Year>Год</WD_Year>
+
+	<!-- Category tabs -->
+	<WD_All>Все</WD_All>
+	<WD_Items>Предметы</WD_Items>
+	<WD_Buildings>Здания</WD_Buildings>
+	<WD_Pawns>Пешки</WD_Pawns>
+
+	<!-- Header -->
+	<WD_Name>Название</WD_Name>
+	<WD_Count>Кол-во</WD_Count>
+	<WD_Value>Стоимость</WD_Value>
+	<WD_ValueDelta>Изменение</WD_ValueDelta>
+
+	<!-- Summary -->
+	<WD_TotalDelta>Изменение богатства: {0}</WD_TotalDelta>
+	<WD_TotalWealth>Общее богатство: {0}</WD_TotalWealth>
+	<WD_NextUpdate>Обновление через ~{0}ч</WD_NextUpdate>
+	<WD_NextUpdateMin>Обновление через ~{0}мин</WD_NextUpdateMin>
+	<WD_NoData>Нет данных за этот период</WD_NoData>
+
+	<!-- Pawns -->
+	<WD_Arrived>прибыл</WD_Arrived>
+	<WD_Gone>ушёл</WD_Gone>
+
+	<!-- Group separators -->
+	<WD_GrpPawns>Пешки</WD_GrpPawns>
+	<WD_GrpAnimals>Животные</WD_GrpAnimals>
+	<WD_GrpWeapons>Оружие</WD_GrpWeapons>
+	<WD_GrpApparel>Одежда</WD_GrpApparel>
+	<WD_GrpFood>Еда</WD_GrpFood>
+	<WD_GrpTextile>Текстиль</WD_GrpTextile>
+	<WD_GrpItems>Предметы</WD_GrpItems>
+	<WD_GrpBuildings>Здания</WD_GrpBuildings>
+	<WD_Durability>— Изменение стоимости —</WD_Durability>
+
+	<!-- Widget -->
+	<WD_WidgetWealth>Богатство: {0}</WD_WidgetWealth>
+	<WD_WidgetDelta>За вчера: {0}</WD_WidgetDelta>
+	<WD_WidgetTooltip>Клик — открыть трекер богатства\nПКМ — перетащить</WD_WidgetTooltip>
+
+	<!-- Button -->
+	<WD_ButtonTip>Открыть трекер изменений богатства</WD_ButtonTip>
+</LanguageData>

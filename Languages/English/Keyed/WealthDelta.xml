@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<!-- Period tabs -->
+	<WD_Now>Today</WD_Now>
+	<WD_DaysAgo>{0}d ago</WD_DaysAgo>
+	<WD_Quadrum>Quadrum</WD_Quadrum>
+	<WD_Year>Year</WD_Year>
+
+	<!-- Category tabs -->
+	<WD_All>All</WD_All>
+	<WD_Items>Items</WD_Items>
+	<WD_Buildings>Buildings</WD_Buildings>
+	<WD_Pawns>Pawns</WD_Pawns>
+
+	<!-- Header -->
+	<WD_Name>Name</WD_Name>
+	<WD_Count>Count</WD_Count>
+	<WD_Value>Value</WD_Value>
+	<WD_ValueDelta>Value change</WD_ValueDelta>
+
+	<!-- Summary -->
+	<WD_TotalDelta>Total wealth change: {0}</WD_TotalDelta>
+	<WD_TotalWealth>Total wealth: {0}</WD_TotalWealth>
+	<WD_NextUpdate>Update in ~{0}h</WD_NextUpdate>
+	<WD_NextUpdateMin>Update in ~{0}min</WD_NextUpdateMin>
+	<WD_NoData>No data for this period yet</WD_NoData>
+
+	<!-- Pawns -->
+	<WD_Arrived>arrived</WD_Arrived>
+	<WD_Gone>gone</WD_Gone>
+
+	<!-- Group separators -->
+	<WD_GrpPawns>Pawns</WD_GrpPawns>
+	<WD_GrpAnimals>Animals</WD_GrpAnimals>
+	<WD_GrpWeapons>Weapons</WD_GrpWeapons>
+	<WD_GrpApparel>Apparel</WD_GrpApparel>
+	<WD_GrpFood>Food</WD_GrpFood>
+	<WD_GrpTextile>Textile</WD_GrpTextile>
+	<WD_GrpItems>Items</WD_GrpItems>
+	<WD_GrpBuildings>Buildings</WD_GrpBuildings>
+	<WD_Durability>— Value changes —</WD_Durability>
+
+	<!-- Widget -->
+	<WD_WidgetWealth>Wealth: {0}</WD_WidgetWealth>
+	<WD_WidgetDelta>Yesterday: {0}</WD_WidgetDelta>
+	<WD_WidgetTooltip>Click to open wealth tracker\nRight-click to drag</WD_WidgetTooltip>
+
+	<!-- Button -->
+	<WD_ButtonTip>Open wealth delta tracker</WD_ButtonTip>
+</LanguageData>
