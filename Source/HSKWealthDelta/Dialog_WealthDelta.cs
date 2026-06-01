@@ -32,6 +32,8 @@ public class Dialog_WealthDelta : Window
 {
     private static DeltaPeriod period = DeltaPeriod.Days;
     private static int daysAgo = 0; // 0 = current snapshot (no delta)
+    private static bool daysPerStep; // false = cumulative (vs today), true = single-day delta
+    private static bool defaultApplied; // pick "1 day ago" as the initial view once, if data exists
     private static DeltaCategory category = DeltaCategory.All;
     private static DeltaSortMode sortMode = DeltaSortMode.ValueDelta;
     private static bool sortAscending;
@@ -41,6 +43,7 @@ public class Dialog_WealthDelta : Window
     private WealthDelta cachedDelta;
     private DeltaPeriod cachedPeriod = (DeltaPeriod)(-1);
     private int cachedDaysAgo = -1;
+    private bool cachedStep;
     private int cachedTick = -1;
 
     private static readonly Color ColorGreen = new Color(0.3f, 0.9f, 0.3f);
@@ -57,6 +60,16 @@ public class Dialog_WealthDelta : Window
         draggable = true;
         resizeable = true;
         absorbInputAroundWindow = false;
+
+        // Default to "1 day ago" the first time the dialog opens, if there is a
+        // previous day to compare against; otherwise stay on the current snapshot.
+        if (!defaultApplied)
+        {
+            defaultApplied = true;
+            var mgr = Current.Game?.GetComponent<WealthSnapshotManager>();
+            if (mgr != null && mgr.GetYesterdaySnapshot() != null)
+                daysAgo = 1;
+        }
     }
 
     public override void DoWindowContents(Rect inRect)
@@ -115,8 +128,11 @@ public class Dialog_WealthDelta : Window
         float remainW = rect.width - daysTabW;
         float tabW = remainW / 2f;
 
+        const float dropW = 156f;
+        const float toggleW = 40f;
+
         // Days dropdown button
-        Rect daysRect = new Rect(rect.x, rect.y, daysTabW, rect.height);
+        Rect daysRect = new Rect(rect.x, rect.y, dropW, rect.height);
         if (period == DeltaPeriod.Days)
             Widgets.DrawBoxSolid(daysRect, new Color(0.3f, 0.3f, 0.4f, 0.8f));
         else
@@ -124,9 +140,13 @@ public class Dialog_WealthDelta : Window
         Widgets.DrawBox(daysRect, 1);
 
         Text.Anchor = TextAnchor.MiddleCenter;
-        string daysLabel = daysAgo == 0
-            ? (string)"WD_Now".Translate()
-            : (string)"WD_DaysAgo".Translate(daysAgo.ToString());
+        string daysLabel;
+        if (daysPerStep)
+            daysLabel = "WD_DayStep".Translate((daysAgo - 1).ToString(), daysAgo.ToString());
+        else
+            daysLabel = daysAgo == 0
+                ? (string)"WD_Now".Translate()
+                : (string)"WD_DaysAgo".Translate(daysAgo.ToString());
         Widgets.Label(daysRect, daysLabel + " ▾");
         Text.Anchor = TextAnchor.UpperLeft;
 
@@ -134,21 +154,56 @@ public class Dialog_WealthDelta : Window
         {
             period = DeltaPeriod.Days;
             var options = new List<FloatMenuOption>();
-            options.Add(new FloatMenuOption("WD_Now".Translate(), () =>
+            if (daysPerStep)
             {
-                daysAgo = 0;
-                InvalidateCache();
-            }));
-            for (int d = 1; d <= 7; d++)
-            {
-                int days = d;
-                options.Add(new FloatMenuOption("WD_DaysAgo".Translate(days.ToString()), () =>
+                for (int d = 1; d <= 6; d++)
                 {
-                    daysAgo = days;
+                    int day = d;
+                    options.Add(new FloatMenuOption(
+                        "WD_DayStep".Translate((day - 1).ToString(), day.ToString()), () =>
+                    {
+                        daysAgo = day;
+                        InvalidateCache();
+                    }));
+                }
+            }
+            else
+            {
+                options.Add(new FloatMenuOption("WD_Now".Translate(), () =>
+                {
+                    daysAgo = 0;
                     InvalidateCache();
                 }));
+                for (int d = 1; d <= 7; d++)
+                {
+                    int days = d;
+                    options.Add(new FloatMenuOption("WD_DaysAgo".Translate(days.ToString()), () =>
+                    {
+                        daysAgo = days;
+                        InvalidateCache();
+                    }));
+                }
             }
             Find.WindowStack.Add(new FloatMenu(options));
+        }
+
+        // Mode toggle: cumulative (Σ, vs today) <-> per-day (Δ, single day)
+        Rect modeRect = new Rect(rect.x + dropW + 4f, rect.y, toggleW, rect.height);
+        Widgets.DrawBoxSolid(modeRect, new Color(0.15f, 0.15f, 0.15f, 0.8f));
+        Widgets.DrawBox(modeRect, 1);
+        Text.Anchor = TextAnchor.MiddleCenter;
+        Widgets.Label(modeRect, daysPerStep ? "Δ" : "Σ");
+        Text.Anchor = TextAnchor.UpperLeft;
+        if (Mouse.IsOver(modeRect))
+            TooltipHandler.TipRegion(modeRect,
+                daysPerStep ? "WD_ModeStepTip".Translate() : "WD_ModeCumulativeTip".Translate());
+        if (Widgets.ButtonInvisible(modeRect))
+        {
+            daysPerStep = !daysPerStep;
+            period = DeltaPeriod.Days;
+            if (daysPerStep && daysAgo == 0)
+                daysAgo = 1;
+            InvalidateCache();
         }
 
         // Quadrum tab
@@ -413,7 +468,7 @@ public class Dialog_WealthDelta : Window
     private void DrawCurrentContent(Rect rect)
     {
         var manager = Current.Game?.GetComponent<WealthSnapshotManager>();
-        var snapshot = manager?.GetLatestSnapshot();
+        var snapshot = manager?.GetLatestSnapshot() ?? manager?.EnsureInitialSnapshot();
         if (snapshot == null)
         {
             Text.Anchor = TextAnchor.MiddleCenter;
@@ -756,6 +811,7 @@ public class Dialog_WealthDelta : Window
     {
         int tick = GenTicks.TicksGame;
         if (cachedDelta != null && cachedPeriod == period && cachedDaysAgo == daysAgo
+            && cachedStep == daysPerStep
             && Math.Abs(tick - cachedTick) < 2500)
             return cachedDelta;
 
@@ -766,18 +822,37 @@ public class Dialog_WealthDelta : Window
             return cachedDelta;
         }
 
-        var current = manager.GetLatestSnapshot();
-        WealthSnapshot previous = period switch
+        var current = manager.GetLatestSnapshot() ?? manager.EnsureInitialSnapshot();
+        WealthSnapshot previous;
+        switch (period)
         {
-            DeltaPeriod.Days => manager.GetDailySnapshot(daysAgo),
-            DeltaPeriod.Quadrum => manager.GetLastQuadrumSnapshot(),
-            DeltaPeriod.Year => manager.GetLastYearSnapshot(),
-            _ => null
-        };
+            case DeltaPeriod.Days:
+                if (daysPerStep)
+                {
+                    // Single-day delta: snapshot (daysAgo) vs the newer snapshot (daysAgo-1)
+                    current = manager.GetDailySnapshot(daysAgo - 1);
+                    previous = manager.GetDailySnapshot(daysAgo);
+                }
+                else
+                {
+                    previous = manager.GetDailySnapshot(daysAgo);
+                }
+                break;
+            case DeltaPeriod.Quadrum:
+                previous = manager.GetLastQuadrumSnapshot();
+                break;
+            case DeltaPeriod.Year:
+                previous = manager.GetLastYearSnapshot();
+                break;
+            default:
+                previous = null;
+                break;
+        }
 
         cachedDelta = WealthDelta.Calculate(current, previous);
         cachedPeriod = period;
         cachedDaysAgo = daysAgo;
+        cachedStep = daysPerStep;
         cachedTick = tick;
         return cachedDelta;
     }

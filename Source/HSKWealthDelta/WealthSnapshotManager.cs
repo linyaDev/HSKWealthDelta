@@ -30,6 +30,24 @@ public class WealthSnapshotManager : GameComponent
         return dailySnapshots.Count > 0 ? dailySnapshots[dailySnapshots.Count - 1] : null;
     }
 
+    // Take the very first snapshot on demand so the widget/dialog have data
+    // immediately, instead of waiting up to one in-game hour (and the game is
+    // paused at start, so ticks — and GameComponentTick — don't advance yet).
+    public WealthSnapshot EnsureInitialSnapshot()
+    {
+        if (dailySnapshots.Count > 0)
+            return dailySnapshots[dailySnapshots.Count - 1];
+
+        var map = Find.CurrentMap;
+        if (map == null)
+            return null;
+
+        int currentDay = GenDate.DaysPassed;
+        TakeDailySnapshot(map, currentDay);
+        lastSnapshotDay = currentDay;
+        return GetLatestSnapshot();
+    }
+
     public WealthSnapshot GetYesterdaySnapshot()
     {
         return dailySnapshots.Count > 1 ? dailySnapshots[dailySnapshots.Count - 2] : null;

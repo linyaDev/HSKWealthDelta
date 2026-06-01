@@ -3,6 +3,9 @@
 	<!-- Period tabs -->
 	<WD_Now>Сегодня</WD_Now>
 	<WD_DaysAgo>{0} дн. назад</WD_DaysAgo>
+	<WD_DayStep>{0}→{1} дн. назад</WD_DayStep>
+	<WD_ModeCumulativeTip>Накопительно до сегодня. Нажмите для режима «за один день».</WD_ModeCumulativeTip>
+	<WD_ModeStepTip>Изменение за один день. Нажмите для накопительного режима.</WD_ModeStepTip>
 	<WD_Quadrum>Квадрум</WD_Quadrum>
 	<WD_Year>Год</WD_Year>
 
@@ -19,8 +22,8 @@
 	<WD_ValueDelta>Изменение</WD_ValueDelta>
 
 	<!-- Summary -->
-	<WD_TotalDelta>Изменение богатства: {0}</WD_TotalDelta>
-	<WD_TotalWealth>Общее богатство: {0}</WD_TotalWealth>
+	<WD_TotalDelta>Изменение богатства игрока: {0}</WD_TotalDelta>
+	<WD_TotalWealth>Богатство игрока: {0}</WD_TotalWealth>
 	<WD_NextUpdate>Обновление через ~{0}ч</WD_NextUpdate>
 	<WD_NextUpdateMin>Обновление через ~{0}мин</WD_NextUpdateMin>
 	<WD_NoData>Нет данных за этот период</WD_NoData>

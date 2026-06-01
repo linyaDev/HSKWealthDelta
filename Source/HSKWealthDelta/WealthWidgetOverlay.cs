@@ -49,7 +49,7 @@ public class WealthWidgetOverlay : GameComponent
         if (manager == null)
             return;
 
-        var current = manager.GetLatestSnapshot();
+        var current = manager.GetLatestSnapshot() ?? manager.EnsureInitialSnapshot();
         if (current == null)
             return;
 
