@@ -99,7 +99,7 @@ public class WealthWidgetOverlay : GameComponent
         Text.Anchor = TextAnchor.MiddleCenter;
         GUI.color = Color.white;
         Rect line1 = new Rect(widgetRect.x, widgetRect.y + 1f, widgetRect.width, 20f);
-        Widgets.Label(line1, "WD_WidgetWealth".Translate(totalWealth.ToString("F0") + "$"));
+        Widgets.Label(line1, "WD_WidgetWealth".Translate(totalWealth.ToString("F0") + " $"));
 
         // Line 2: Yesterday delta
         var yesterday = manager.GetYesterdaySnapshot();
@@ -110,7 +110,7 @@ public class WealthWidgetOverlay : GameComponent
             float delta = totalWealth - yesterday.TotalWealth;
             GUI.color = delta >= 0 ? Green : Red;
             string sign = delta >= 0 ? "+" : "";
-            Widgets.Label(line2, "WD_WidgetDelta".Translate(sign + delta.ToString("F0") + "$"));
+            Widgets.Label(line2, "WD_WidgetDelta".Translate(sign + delta.ToString("F0") + " $"));
         }
         else
         {

@@ -174,7 +174,7 @@ public class Dialog_WealthDelta : Window
                     daysAgo = 0;
                     InvalidateCache();
                 }));
-                for (int d = 1; d <= 7; d++)
+                for (int d = 1; d <= 6; d++)
                 {
                     int days = d;
                     options.Add(new FloatMenuOption("WD_DaysAgo".Translate(days.ToString()), () =>
@@ -270,7 +270,7 @@ public class Dialog_WealthDelta : Window
             float totalDelta = delta.TotalDelta;
             GUI.color = totalDelta >= 0 ? ColorGreen : ColorRed;
             string sign = totalDelta >= 0 ? "+" : "";
-            Widgets.Label(rect, "WD_TotalDelta".Translate(sign + totalDelta.ToString("F0") + "$"));
+            Widgets.Label(rect, "WD_TotalDelta".Translate(sign + totalDelta.ToString("F0") + " $"));
         }
 
         // Next update timer on the right
@@ -333,7 +333,7 @@ public class Dialog_WealthDelta : Window
         Text.Anchor = TextAnchor.MiddleRight;
         string sign = total >= 0 ? "+" : "";
         GUI.color = total > 0 ? ColorGreen : total < 0 ? ColorRed : ColorGray;
-        Widgets.Label(new Rect(rect.x, rect.y, rect.width - 4f, rect.height), sign + total.ToString("F0") + "$");
+        Widgets.Label(new Rect(rect.x, rect.y, rect.width - 4f, rect.height), sign + total.ToString("F0") + " $");
         GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
         if (Widgets.ButtonInvisible(rect))
@@ -354,7 +354,7 @@ public class Dialog_WealthDelta : Window
         Widgets.Label(new Rect(rect.x + 4f, rect.y, rect.width * 0.6f, rect.height), arrow + label);
         Text.Anchor = TextAnchor.MiddleRight;
         GUI.color = Color.white;
-        Widgets.Label(new Rect(rect.x, rect.y, rect.width - 4f, rect.height), total.ToString("F0") + "$");
+        Widgets.Label(new Rect(rect.x, rect.y, rect.width - 4f, rect.height), total.ToString("F0") + " $");
         Text.Anchor = TextAnchor.UpperLeft;
         if (Widgets.ButtonInvisible(rect))
         {
@@ -449,7 +449,7 @@ public class Dialog_WealthDelta : Window
         Rect nameRect = new Rect(x, rect.y, nameW, rect.height);
         Text.Anchor = TextAnchor.MiddleLeft;
         GUI.color = Color.white;
-        Widgets.Label(nameRect, "WD_TotalWealth".Translate(total.ToString("F0") + "$"));
+        Widgets.Label(nameRect, "WD_TotalWealth".Translate(total.ToString("F0") + " $"));
         if (Widgets.ButtonInvisible(nameRect))
         {
             if (sortMode == DeltaSortMode.Name) sortAscending = !sortAscending;
@@ -585,7 +585,7 @@ public class Dialog_WealthDelta : Window
             x += 80f;
 
             // Value
-            Widgets.Label(new Rect(x, rowRect.y, 140f, rowRect.height), entry.marketValueTotal.ToString("F0") + "$");
+            Widgets.Label(new Rect(x, rowRect.y, 140f, rowRect.height), entry.marketValueTotal.ToString("F0") + " $");
 
             GUI.color = Color.white;
             Text.Anchor = TextAnchor.UpperLeft;
@@ -720,7 +720,7 @@ public class Dialog_WealthDelta : Window
             x += 80f;
 
             // Value delta
-            string valStr = entry.valueDelta >= 0 ? $"+{entry.valueDelta:F0}$" : $"{entry.valueDelta:F0}$";
+            string valStr = entry.valueDelta >= 0 ? $"+{entry.valueDelta:F0} $" : $"{entry.valueDelta:F0} $";
             GUI.color = entry.valueDelta > 0 ? ColorGreen : entry.valueDelta < 0 ? ColorRed : ColorGray;
             Widgets.Label(new Rect(x, rowRect.y, 140f, rowRect.height), valStr);
 
