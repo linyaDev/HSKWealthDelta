@@ -8,10 +8,26 @@
 	<packageId>linya.hskwealthdelta</packageId>
 	<description>
 [English]
-Tracks colony wealth changes over time. Shows what items, buildings, and pawns were added or removed — per day, week, quadrum, or year.
+Colony wealth diary. Advanced colony wealth tracking mod.
+
+Ever looted a bunch of stuff and watched your colony wealth skyrocket? Always wanted to know exactly what junk you picked up — now you can.
+
+- Track wealth changes per day, quadrum, or year
+- 2 modes: view changes over the last N days, or between specific days
+- See which items, buildings, and pawns were added or removed
+- Categorized view, sortable columns, collapsible groups
+- Draggable wealth widget overlay
 
 [Russian]
-Отслеживает изменения богатства колонии. Показывает какие предметы, здания и пешки появились или исчезли — за день, неделю, квадрум или год.
+Ежедневник стоимости колонии. Прокачанный мод для подсчёта стоимости колонии.
+
+У вас же бывает такое, что вы чего-то налутали вчера и стоимость колонии выросла на огромное число? Всегда хотелось посмотреть какого мусора насобирал — теперь можно.
+
+- Отслеживание изменений богатства за день, квадрум или год
+- 2 режима: за N дней или между определёнными днями
+- Показывает какие предметы, здания и пешки появились или исчезли
+- Категории, сортировка, сворачиваемые группы
+- Перемещаемый виджет богатства
 	</description>
 	<modDependencies>
 		<li>
