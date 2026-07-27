@@ -17,6 +17,7 @@ public static class WealthSnapshotCollector
 
         CollectItems(map, snapshot.items);
         CollectBuildings(map, snapshot.buildings);
+        CollectFloors(map, snapshot.buildings);
         CollectPawns(map, snapshot.pawns);
 
         return snapshot;
@@ -118,6 +119,42 @@ public static class WealthSnapshotCollector
                 {
                     grouped[key] = new WealthEntry(thing.LabelShort, thing.def.defName, key, 1, val, val);
                 }
+            }
+        }
+
+        entries.AddRange(grouped.Values);
+    }
+
+    private static void CollectFloors(Map map, List<WealthEntry> entries)
+    {
+        var topGrid = map.terrainGrid.topGrid;
+        var grouped = new Dictionary<string, WealthEntry>();
+        var cellIndices = map.cellIndices;
+
+        for (int i = 0; i < topGrid.Length; i++)
+        {
+            var terrain = topGrid[i];
+            if (terrain == null)
+                continue;
+
+            float val = terrain.GetStatValueAbstract(StatDefOf.MarketValue);
+            if (val <= 0f)
+                continue;
+
+            // Skip fogged cells
+            IntVec3 cell = cellIndices.IndexToCell(i);
+            if (cell.Fogged(map))
+                continue;
+
+            string key = "floor_" + terrain.defName;
+            if (grouped.TryGetValue(key, out var existing))
+            {
+                existing.count += 1;
+                existing.marketValueTotal += val;
+            }
+            else
+            {
+                grouped[key] = new WealthEntry(terrain.label, terrain.defName, key, 1, val, val);
             }
         }
 

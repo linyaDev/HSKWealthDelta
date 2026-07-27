@@ -310,7 +310,13 @@ public class Dialog_WealthDelta : Window
         if (IsWeaponDef(defName)) return 2;
         if (IsApparelDef(defName)) return 3;
         var def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
-        if (def == null) return 6;
+        if (def == null)
+        {
+            // Check if it's a floor terrain
+            var terrain = DefDatabase<TerrainDef>.GetNamedSilentFail(defName);
+            if (terrain != null) return 7; // buildings group
+            return 6;
+        }
         if (def.building != null) return 7;
         if (def.IsIngestible) return 4;
         if (def.IsStuff && def.stuffProps?.categories != null)
