@@ -6,7 +6,7 @@
 	<WD_DayStep>{0}→{1} дн. назад</WD_DayStep>
 	<WD_ModeCumulativeTip>Накопительно до сегодня. Нажмите для режима «за один день».</WD_ModeCumulativeTip>
 	<WD_ModeStepTip>Изменение за один день. Нажмите для накопительного режима.</WD_ModeStepTip>
-	<WD_Quadrum>Квадрум</WD_Quadrum>
+	<WD_Quadrum>Квартал</WD_Quadrum>
 	<WD_Year>Год</WD_Year>
 
 	<!-- Category tabs -->
