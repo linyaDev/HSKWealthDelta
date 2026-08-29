@@ -46,9 +46,10 @@ public class Dialog_WealthDelta : Window
     private bool cachedStep;
     private int cachedTick = -1;
 
-    private static readonly Color ColorGreen = new Color(0.3f, 0.9f, 0.3f);
-    private static readonly Color ColorRed = new Color(0.9f, 0.3f, 0.3f);
-    private static readonly Color ColorGray = new Color(0.6f, 0.6f, 0.6f);
+    // EPrime's Readouts palette: muted green / CriticalTint / CaptionText
+    private static readonly Color ColorGreen = new Color(0.55f, 0.78f, 0.45f);
+    private static readonly Color ColorRed = new Color(1f, 0.72f, 0.45f);
+    private static readonly Color ColorGray = new Color(0.6f, 0.62f, 0.64f);
     private static readonly Color HeaderBg = new Color(0.15f, 0.15f, 0.15f, 0.8f);
     private float cachedCurrentTotal;
 
