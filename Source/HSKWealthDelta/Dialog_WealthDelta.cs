@@ -447,6 +447,51 @@ public class Dialog_WealthDelta : Window
         Widgets.DefIcon(rect, def);
     }
 
+    /// <summary>Jump camera to the entry's pawn or the first spawned thing of its def (current map first).</summary>
+    private static bool TryJumpToEntry(DeltaEntry entry, DeltaCategory category)
+    {
+        if (category == DeltaCategory.Pawns)
+        {
+            if (entry.pawnId == 0) return false;
+            foreach (var map in Find.Maps)
+            {
+                var pawns = map.mapPawns.AllPawnsSpawned;
+                for (int i = 0; i < pawns.Count; i++)
+                {
+                    if (pawns[i].thingIDNumber == entry.pawnId)
+                    {
+                        CameraJumper.TryJumpAndSelect(pawns[i]);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        var def = DefDatabase<ThingDef>.GetNamedSilentFail(entry.defName);
+        if (def == null) return false;
+
+        var maps = Find.Maps;
+        var current = Find.CurrentMap;
+        for (int pass = 0; pass < 2; pass++)
+        {
+            for (int i = 0; i < maps.Count; i++)
+            {
+                var map = maps[i];
+                bool isCurrent = map == current;
+                if (pass == 0 ? !isCurrent : isCurrent)
+                    continue;
+                var things = map.listerThings.ThingsOfDef(def);
+                if (things.Count > 0)
+                {
+                    CameraJumper.TryJumpAndSelect(things[0]);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private void DrawCurrentHeader(Rect rect, float total)
     {
         Widgets.DrawBoxSolid(rect, HeaderBg);
@@ -735,6 +780,10 @@ public class Dialog_WealthDelta : Window
 
             GUI.color = Color.white;
             Text.Anchor = TextAnchor.UpperLeft;
+
+            // Click: jump to the thing/pawn on the map
+            if (Widgets.ButtonInvisible(rowRect) && TryJumpToEntry(entry, category))
+                Close();
         }
 
         Widgets.EndScrollView();
