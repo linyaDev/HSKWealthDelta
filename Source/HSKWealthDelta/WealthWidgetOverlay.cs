@@ -10,7 +10,7 @@ public class WealthWidgetOverlay : GameComponent
 
     private static readonly Color Green = new Color(0.3f, 0.9f, 0.3f);
     private static readonly Color Red = new Color(0.9f, 0.3f, 0.3f);
-    private static readonly Color BgColor = new Color(0.1f, 0.1f, 0.1f, 0.7f);
+    private static readonly Color BgColor = new Color(0.08f, 0.08f, 0.08f, 0.9f);
 
     private static bool dragging;
     private static Vector2 dragOffset;
@@ -36,7 +36,9 @@ public class WealthWidgetOverlay : GameComponent
 
     public WealthWidgetOverlay(Game game) : base() { }
 
-    public override void GameComponentOnGUI()
+    // Drawn from Patch_ReadoutDraw (after map thing labels), not from GameComponentOnGUI —
+    // that hook runs before ThingOverlays, so stack-count labels bled through the widget.
+    public void DrawOverlay()
     {
         if (!showWidget)
             return;
