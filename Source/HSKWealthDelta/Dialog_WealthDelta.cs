@@ -788,9 +788,9 @@ public class Dialog_WealthDelta : Window
             GUI.color = Color.white;
             Text.Anchor = TextAnchor.UpperLeft;
 
-            // Click: jump to the thing/pawn on the map
-            if (Widgets.ButtonInvisible(rowRect) && TryJumpToEntry(entry, category))
-                Close();
+            // Click: jump to the thing/pawn on the map (window stays open)
+            if (Widgets.ButtonInvisible(rowRect))
+                TryJumpToEntry(entry, category);
         }
 
         Widgets.EndScrollView();
