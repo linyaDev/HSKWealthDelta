@@ -50,7 +50,7 @@ public class Dialog_WealthDelta : Window
     private static readonly Color ColorGreen = new Color(0.55f, 0.78f, 0.45f);
     private static readonly Color ColorRed = new Color(0.9f, 0.46f, 0.42f);
     private static readonly Color ColorGray = new Color(0.6f, 0.62f, 0.64f);
-    // Translucent black instead of opaque gray — lets the window theme tint show through
+    // Translucent black instead of opaque gray вЂ” lets the window theme tint show through
     private static readonly Color HeaderBg = new Color(0f, 0f, 0f, 0.35f);
     private float cachedCurrentTotal;
 
@@ -151,7 +151,7 @@ public class Dialog_WealthDelta : Window
             daysLabel = daysAgo == 0
                 ? (string)"WD_Now".Translate()
                 : (string)"WD_DaysAgo".Translate(daysAgo.ToString());
-        Widgets.Label(daysRect, daysLabel + " ▾");
+        Widgets.Label(daysRect, daysLabel + " в–ѕ");
         Text.Anchor = TextAnchor.UpperLeft;
 
         if (Widgets.ButtonInvisible(daysRect))
@@ -191,12 +191,12 @@ public class Dialog_WealthDelta : Window
             Find.WindowStack.Add(new FloatMenu(options));
         }
 
-        // Mode toggle: cumulative (Σ, vs today) <-> per-day (Δ, single day)
+        // Mode toggle: cumulative (ОЈ, vs today) <-> per-day (О”, single day)
         Rect modeRect = new Rect(rect.x + dropW + 4f, rect.y, toggleW, rect.height);
         Widgets.DrawBoxSolid(modeRect, new Color(0f, 0f, 0f, 0.35f));
         Widgets.DrawBox(modeRect, 1);
         Text.Anchor = TextAnchor.MiddleCenter;
-        Widgets.Label(modeRect, daysPerStep ? "Δ" : "Σ");
+        Widgets.Label(modeRect, daysPerStep ? "О”" : "ОЈ");
         Text.Anchor = TextAnchor.UpperLeft;
         if (Mouse.IsOver(modeRect))
             TooltipHandler.TipRegion(modeRect,
@@ -338,7 +338,7 @@ public class Dialog_WealthDelta : Window
         Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
         Text.Anchor = TextAnchor.MiddleLeft;
         GUI.color = Color.white;
-        string arrow = collapsed ? "▶ " : "▼ ";
+        string arrow = collapsed ? "в–¶ " : "в–ј ";
         Widgets.Label(new Rect(rect.x + 4f, rect.y, rect.width * 0.6f, rect.height), arrow + label);
         Text.Anchor = TextAnchor.MiddleRight;
         string sign = total >= 0 ? "+" : "";
@@ -360,7 +360,7 @@ public class Dialog_WealthDelta : Window
         Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
         Text.Anchor = TextAnchor.MiddleLeft;
         GUI.color = Color.white;
-        string arrow = collapsed ? "▶ " : "▼ ";
+        string arrow = collapsed ? "в–¶ " : "в–ј ";
         Widgets.Label(new Rect(rect.x + 4f, rect.y, rect.width * 0.6f, rect.height), arrow + label);
         Text.Anchor = TextAnchor.MiddleRight;
         GUI.color = Color.white;
@@ -421,7 +421,7 @@ public class Dialog_WealthDelta : Window
         Text.Anchor = TextAnchor.MiddleCenter;
         string arrow = "";
         if (sortMode == mode)
-            arrow = sortAscending ? " ▲" : " ▼";
+            arrow = sortAscending ? " в–І" : " в–ј";
         Widgets.Label(rect, label + arrow);
         Text.Anchor = TextAnchor.UpperLeft;
 
@@ -615,8 +615,7 @@ public class Dialog_WealthDelta : Window
             Rect rowRect = new Rect(0f, drawY, viewRect.width, rowHeight);
             drawY += rowHeight;
 
-            if (i % 2 == 0)
-                Widgets.DrawBoxSolid(rowRect, new Color(0f, 0f, 0f, 0.25f));
+            Widgets.DrawBoxSolid(rowRect, new Color(0f, 0f, 0f, 0.25f));
 
             if (Mouse.IsOver(rowRect))
                 Widgets.DrawHighlight(rowRect);
@@ -734,8 +733,7 @@ public class Dialog_WealthDelta : Window
             Rect rowRect = new Rect(0f, drawY, viewRect.width, rowHeight);
             drawY += rowHeight;
 
-            if (i % 2 == 0)
-                Widgets.DrawBoxSolid(rowRect, new Color(0f, 0f, 0f, 0.25f));
+            Widgets.DrawBoxSolid(rowRect, new Color(0f, 0f, 0f, 0.25f));
 
             if (Mouse.IsOver(rowRect))
                 Widgets.DrawHighlight(rowRect);
@@ -752,7 +750,7 @@ public class Dialog_WealthDelta : Window
 
             string nameLabel = entry.label;
             if (entry.isNew)
-                nameLabel += " ★";
+                nameLabel += " в…";
 
             Widgets.Label(new Rect(x, rowRect.y, nameW - IconSize - IconPad - 8f, rowRect.height), nameLabel);
             x = rowRect.x + 4f + nameW;
@@ -764,7 +762,7 @@ public class Dialog_WealthDelta : Window
             {
                 if (entry.isNew) countStr = "WD_Arrived".Translate();
                 else if (entry.isGone) countStr = "WD_Gone".Translate();
-                else countStr = "—";
+                else countStr = "вЂ”";
             }
             else
             {
