@@ -8,8 +8,9 @@ public class WealthWidgetOverlay : GameComponent
 {
     public static bool showWidget = true;
 
-    private static readonly Color Green = new Color(0.3f, 0.9f, 0.3f);
-    private static readonly Color Red = new Color(0.9f, 0.3f, 0.3f);
+    // EPrime's Readouts palette: muted green / CriticalTint
+    private static readonly Color Green = new Color(0.55f, 0.78f, 0.45f);
+    private static readonly Color Red = new Color(1f, 0.72f, 0.45f);
     private static readonly Color BgColor = new Color(0.08f, 0.08f, 0.08f, 0.9f);
 
     private static bool dragging;
