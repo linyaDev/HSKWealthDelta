@@ -89,7 +89,6 @@ public class WealthWidgetOverlay : GameComponent
 
         // Background
         Widgets.DrawBoxSolid(widgetRect, BgColor);
-        Widgets.DrawBox(widgetRect, 1);
 
         Text.WordWrap = false;
 
