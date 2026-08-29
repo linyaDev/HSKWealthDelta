@@ -54,6 +54,8 @@ public class Dialog_WealthDelta : Window
     private static readonly Color HeaderBg = new Color(0f, 0f, 0f, 0.35f);
     // EPrime-style faint outline instead of bright white boxes
     private static readonly Color OutlineColor = new Color(1f, 1f, 1f, 0.15f);
+    // Soft ink instead of pure white text (EPrime HeaderText)
+    private static readonly Color InkColor = new Color(0.85f, 0.85f, 0.85f);
     private float cachedCurrentTotal;
 
     public override Vector2 InitialSize => new Vector2(650f, 550f);
@@ -155,7 +157,9 @@ public class Dialog_WealthDelta : Window
             daysLabel = daysAgo == 0
                 ? (string)"WD_Now".Translate()
                 : (string)"WD_DaysAgo".Translate(daysAgo.ToString());
+        GUI.color = InkColor;
         Widgets.Label(daysRect, daysLabel + " ▾");
+        GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
 
         if (Widgets.ButtonInvisible(daysRect))
@@ -202,7 +206,9 @@ public class Dialog_WealthDelta : Window
         Widgets.DrawBox(modeRect, 1);
         GUI.color = Color.white;
         Text.Anchor = TextAnchor.MiddleCenter;
+        GUI.color = InkColor;
         Widgets.Label(modeRect, daysPerStep ? "Δ" : "Σ");
+        GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
         if (Mouse.IsOver(modeRect))
             TooltipHandler.TipRegion(modeRect,
@@ -261,9 +267,10 @@ public class Dialog_WealthDelta : Window
 
         GUI.color = OutlineColor;
         Widgets.DrawBox(rect, 1);
-        GUI.color = Color.white;
+        GUI.color = InkColor;
         Text.Anchor = TextAnchor.MiddleCenter;
         Widgets.Label(rect, label);
+        GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
 
         return Widgets.ButtonInvisible(rect);
@@ -430,7 +437,9 @@ public class Dialog_WealthDelta : Window
         string arrow = "";
         if (sortMode == mode)
             arrow = sortAscending ? " ▲" : " ▼";
+        GUI.color = InkColor;
         Widgets.Label(rect, label + arrow);
+        GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
 
         if (Widgets.ButtonInvisible(rect))
@@ -511,7 +520,7 @@ public class Dialog_WealthDelta : Window
         // Show total wealth instead of "Name"
         Rect nameRect = new Rect(x, rect.y, nameW, rect.height);
         Text.Anchor = TextAnchor.MiddleLeft;
-        GUI.color = Color.white;
+        GUI.color = InkColor;
         Widgets.Label(nameRect, "WD_TotalWealth".Translate(total.ToString("F0") + " $"));
         if (Widgets.ButtonInvisible(nameRect))
         {
@@ -636,7 +645,7 @@ public class Dialog_WealthDelta : Window
 
             // Name
             Text.Anchor = TextAnchor.MiddleLeft;
-            GUI.color = Color.white;
+            GUI.color = InkColor;
             Widgets.Label(new Rect(x, rowRect.y, nameW - IconSize - IconPad - 8f, rowRect.height), entry.label);
             x = rowRect.x + 4f + nameW;
 
@@ -754,7 +763,7 @@ public class Dialog_WealthDelta : Window
 
             // Name
             Text.Anchor = TextAnchor.MiddleLeft;
-            GUI.color = entry.isNew ? ColorGreen : entry.isGone ? ColorRed : Color.white;
+            GUI.color = entry.isNew ? ColorGreen : entry.isGone ? ColorRed : InkColor;
 
             string nameLabel = entry.label;
             if (entry.isNew)
