@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
@@ -50,7 +50,7 @@ public class Dialog_WealthDelta : Window
     private static readonly Color ColorGreen = new Color(0.55f, 0.78f, 0.45f);
     private static readonly Color ColorRed = new Color(0.9f, 0.46f, 0.42f);
     private static readonly Color ColorGray = new Color(0.6f, 0.62f, 0.64f);
-    // Translucent black instead of opaque gray вЂ” lets the window theme tint show through
+    // Translucent black instead of opaque gray — lets the window theme tint show through
     private static readonly Color HeaderBg = new Color(0f, 0f, 0f, 0.35f);
     // EPrime-style faint outline instead of bright white boxes
     private static readonly Color OutlineColor = new Color(1f, 1f, 1f, 0.15f);
@@ -155,7 +155,7 @@ public class Dialog_WealthDelta : Window
             daysLabel = daysAgo == 0
                 ? (string)"WD_Now".Translate()
                 : (string)"WD_DaysAgo".Translate(daysAgo.ToString());
-        Widgets.Label(daysRect, daysLabel + " в–ѕ");
+        Widgets.Label(daysRect, daysLabel + " ▾");
         Text.Anchor = TextAnchor.UpperLeft;
 
         if (Widgets.ButtonInvisible(daysRect))
@@ -195,14 +195,14 @@ public class Dialog_WealthDelta : Window
             Find.WindowStack.Add(new FloatMenu(options));
         }
 
-        // Mode toggle: cumulative (ОЈ, vs today) <-> per-day (О”, single day)
+        // Mode toggle: cumulative (Σ, vs today) <-> per-day (Δ, single day)
         Rect modeRect = new Rect(rect.x + dropW + 4f, rect.y, toggleW, rect.height);
         Widgets.DrawBoxSolid(modeRect, new Color(0f, 0f, 0f, 0.35f));
         GUI.color = OutlineColor;
         Widgets.DrawBox(modeRect, 1);
         GUI.color = Color.white;
         Text.Anchor = TextAnchor.MiddleCenter;
-        Widgets.Label(modeRect, daysPerStep ? "О”" : "ОЈ");
+        Widgets.Label(modeRect, daysPerStep ? "Δ" : "Σ");
         Text.Anchor = TextAnchor.UpperLeft;
         if (Mouse.IsOver(modeRect))
             TooltipHandler.TipRegion(modeRect,
@@ -346,7 +346,7 @@ public class Dialog_WealthDelta : Window
         Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
         Text.Anchor = TextAnchor.MiddleLeft;
         GUI.color = Color.white;
-        string arrow = collapsed ? "в–¶ " : "в–ј ";
+        string arrow = collapsed ? "▶ " : "▼ ";
         Widgets.Label(new Rect(rect.x + 4f, rect.y, rect.width * 0.6f, rect.height), arrow + label);
         Text.Anchor = TextAnchor.MiddleRight;
         string sign = total >= 0 ? "+" : "";
@@ -368,7 +368,7 @@ public class Dialog_WealthDelta : Window
         Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
         Text.Anchor = TextAnchor.MiddleLeft;
         GUI.color = Color.white;
-        string arrow = collapsed ? "в–¶ " : "в–ј ";
+        string arrow = collapsed ? "▶ " : "▼ ";
         Widgets.Label(new Rect(rect.x + 4f, rect.y, rect.width * 0.6f, rect.height), arrow + label);
         Text.Anchor = TextAnchor.MiddleRight;
         GUI.color = Color.white;
@@ -429,7 +429,7 @@ public class Dialog_WealthDelta : Window
         Text.Anchor = TextAnchor.MiddleCenter;
         string arrow = "";
         if (sortMode == mode)
-            arrow = sortAscending ? " в–І" : " в–ј";
+            arrow = sortAscending ? " ▲" : " ▼";
         Widgets.Label(rect, label + arrow);
         Text.Anchor = TextAnchor.UpperLeft;
 
@@ -758,7 +758,7 @@ public class Dialog_WealthDelta : Window
 
             string nameLabel = entry.label;
             if (entry.isNew)
-                nameLabel += " в…";
+                nameLabel += " ★";
 
             Widgets.Label(new Rect(x, rowRect.y, nameW - IconSize - IconPad - 8f, rowRect.height), nameLabel);
             x = rowRect.x + 4f + nameW;
@@ -770,7 +770,7 @@ public class Dialog_WealthDelta : Window
             {
                 if (entry.isNew) countStr = "WD_Arrived".Translate();
                 else if (entry.isGone) countStr = "WD_Gone".Translate();
-                else countStr = "вЂ”";
+                else countStr = "—";
             }
             else
             {
