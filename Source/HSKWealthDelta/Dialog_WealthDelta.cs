@@ -46,11 +46,12 @@ public class Dialog_WealthDelta : Window
     private bool cachedStep;
     private int cachedTick = -1;
 
-    // Muted EPrime green/gray; classic widget red for negatives (CriticalTint reads as orange)
+    // Muted green + softened red (#E5756A): matched visual weight, CVD gap covered by +/- signs
     private static readonly Color ColorGreen = new Color(0.55f, 0.78f, 0.45f);
-    private static readonly Color ColorRed = new Color(0.9f, 0.3f, 0.3f);
+    private static readonly Color ColorRed = new Color(0.9f, 0.46f, 0.42f);
     private static readonly Color ColorGray = new Color(0.6f, 0.62f, 0.64f);
-    private static readonly Color HeaderBg = new Color(0.15f, 0.15f, 0.15f, 0.8f);
+    // Translucent black instead of opaque gray — lets the window theme tint show through
+    private static readonly Color HeaderBg = new Color(0f, 0f, 0f, 0.35f);
     private float cachedCurrentTotal;
 
     public override Vector2 InitialSize => new Vector2(650f, 550f);
@@ -139,7 +140,7 @@ public class Dialog_WealthDelta : Window
         if (period == DeltaPeriod.Days)
             Widgets.DrawBoxSolid(daysRect, new Color(0.3f, 0.3f, 0.4f, 0.8f));
         else
-            Widgets.DrawBoxSolid(daysRect, new Color(0.15f, 0.15f, 0.15f, 0.8f));
+            Widgets.DrawBoxSolid(daysRect, new Color(0f, 0f, 0f, 0.35f));
         Widgets.DrawBox(daysRect, 1);
 
         Text.Anchor = TextAnchor.MiddleCenter;
@@ -192,7 +193,7 @@ public class Dialog_WealthDelta : Window
 
         // Mode toggle: cumulative (Σ, vs today) <-> per-day (Δ, single day)
         Rect modeRect = new Rect(rect.x + dropW + 4f, rect.y, toggleW, rect.height);
-        Widgets.DrawBoxSolid(modeRect, new Color(0.15f, 0.15f, 0.15f, 0.8f));
+        Widgets.DrawBoxSolid(modeRect, new Color(0f, 0f, 0f, 0.35f));
         Widgets.DrawBox(modeRect, 1);
         Text.Anchor = TextAnchor.MiddleCenter;
         Widgets.Label(modeRect, daysPerStep ? "Δ" : "Σ");
@@ -250,7 +251,7 @@ public class Dialog_WealthDelta : Window
         if (active)
             Widgets.DrawBoxSolid(rect, new Color(0.3f, 0.3f, 0.4f, 0.8f));
         else
-            Widgets.DrawBoxSolid(rect, new Color(0.15f, 0.15f, 0.15f, 0.8f));
+            Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
 
         Widgets.DrawBox(rect, 1);
         Text.Anchor = TextAnchor.MiddleCenter;
@@ -334,7 +335,7 @@ public class Dialog_WealthDelta : Window
     private bool DrawGroupSeparator(Rect rect, string label, float total, int groupId)
     {
         bool collapsed = collapsedGroups.Contains(groupId);
-        Widgets.DrawBoxSolid(rect, new Color(0.2f, 0.2f, 0.25f, 0.8f));
+        Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
         Text.Anchor = TextAnchor.MiddleLeft;
         GUI.color = Color.white;
         string arrow = collapsed ? "▶ " : "▼ ";
@@ -356,7 +357,7 @@ public class Dialog_WealthDelta : Window
     private bool DrawGroupSeparatorPlain(Rect rect, string label, float total, int groupId)
     {
         bool collapsed = collapsedGroups.Contains(groupId);
-        Widgets.DrawBoxSolid(rect, new Color(0.2f, 0.2f, 0.25f, 0.8f));
+        Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
         Text.Anchor = TextAnchor.MiddleLeft;
         GUI.color = Color.white;
         string arrow = collapsed ? "▶ " : "▼ ";
@@ -615,7 +616,7 @@ public class Dialog_WealthDelta : Window
             drawY += rowHeight;
 
             if (i % 2 == 0)
-                Widgets.DrawBoxSolid(rowRect, new Color(0.1f, 0.1f, 0.1f, 0.3f));
+                Widgets.DrawBoxSolid(rowRect, new Color(0f, 0f, 0f, 0.25f));
 
             if (Mouse.IsOver(rowRect))
                 Widgets.DrawHighlight(rowRect);
@@ -734,7 +735,7 @@ public class Dialog_WealthDelta : Window
             drawY += rowHeight;
 
             if (i % 2 == 0)
-                Widgets.DrawBoxSolid(rowRect, new Color(0.1f, 0.1f, 0.1f, 0.3f));
+                Widgets.DrawBoxSolid(rowRect, new Color(0f, 0f, 0f, 0.25f));
 
             if (Mouse.IsOver(rowRect))
                 Widgets.DrawHighlight(rowRect);
