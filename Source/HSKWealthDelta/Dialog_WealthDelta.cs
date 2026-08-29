@@ -60,6 +60,8 @@ public class Dialog_WealthDelta : Window
         draggable = true;
         resizeable = true;
         absorbInputAroundWindow = false;
+        preventCameraMotion = false; // keep WASD/edge camera movement while open
+        focusWhenOpened = false;
 
         // Default to "1 day ago" the first time the dialog opens, if there is a
         // previous day to compare against; otherwise stay on the current snapshot.
