@@ -52,6 +52,8 @@ public class Dialog_WealthDelta : Window
     private static readonly Color ColorGray = new Color(0.6f, 0.62f, 0.64f);
     // Translucent black instead of opaque gray вЂ” lets the window theme tint show through
     private static readonly Color HeaderBg = new Color(0f, 0f, 0f, 0.35f);
+    // EPrime-style faint outline instead of bright white boxes
+    private static readonly Color OutlineColor = new Color(1f, 1f, 1f, 0.15f);
     private float cachedCurrentTotal;
 
     public override Vector2 InitialSize => new Vector2(650f, 550f);
@@ -141,7 +143,9 @@ public class Dialog_WealthDelta : Window
             Widgets.DrawBoxSolid(daysRect, new Color(0.3f, 0.3f, 0.4f, 0.8f));
         else
             Widgets.DrawBoxSolid(daysRect, new Color(0f, 0f, 0f, 0.35f));
+        GUI.color = OutlineColor;
         Widgets.DrawBox(daysRect, 1);
+        GUI.color = Color.white;
 
         Text.Anchor = TextAnchor.MiddleCenter;
         string daysLabel;
@@ -194,7 +198,9 @@ public class Dialog_WealthDelta : Window
         // Mode toggle: cumulative (ОЈ, vs today) <-> per-day (О”, single day)
         Rect modeRect = new Rect(rect.x + dropW + 4f, rect.y, toggleW, rect.height);
         Widgets.DrawBoxSolid(modeRect, new Color(0f, 0f, 0f, 0.35f));
+        GUI.color = OutlineColor;
         Widgets.DrawBox(modeRect, 1);
+        GUI.color = Color.white;
         Text.Anchor = TextAnchor.MiddleCenter;
         Widgets.Label(modeRect, daysPerStep ? "О”" : "ОЈ");
         Text.Anchor = TextAnchor.UpperLeft;
@@ -253,7 +259,9 @@ public class Dialog_WealthDelta : Window
         else
             Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.35f));
 
+        GUI.color = OutlineColor;
         Widgets.DrawBox(rect, 1);
+        GUI.color = Color.white;
         Text.Anchor = TextAnchor.MiddleCenter;
         Widgets.Label(rect, label);
         Text.Anchor = TextAnchor.UpperLeft;
