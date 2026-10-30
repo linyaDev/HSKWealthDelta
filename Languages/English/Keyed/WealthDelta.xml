@@ -47,6 +47,7 @@
 	<WD_WidgetWealth>Wealth: {0}</WD_WidgetWealth>
 	<WD_WidgetDelta>Yesterday: {0}</WD_WidgetDelta>
 	<WD_WidgetTooltip>Click to open wealth tracker\nRight-click to drag</WD_WidgetTooltip>
+	<WD_ResetWidgetPosition>Reset widget position</WD_ResetWidgetPosition>
 
 	<!-- Button -->
 	<WD_ButtonTip>Open wealth delta tracker</WD_ButtonTip>

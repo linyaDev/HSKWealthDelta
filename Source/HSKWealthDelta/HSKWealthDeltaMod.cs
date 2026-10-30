@@ -25,5 +25,16 @@ public class HSKWealthDeltaMod : Mod
         Settings = GetSettings<HSKWealthDeltaSettings>();
     }
 
-    public override string SettingsCategory() => null;
+    public override string SettingsCategory() => "HSK Wealth Delta";
+
+    public override void DoSettingsWindowContents(Rect inRect)
+    {
+        Rect buttonRect = new Rect(inRect.x, inRect.y, 240f, 32f);
+        if (Widgets.ButtonText(buttonRect, "WD_ResetWidgetPosition".Translate()))
+        {
+            Settings.widgetX = 200f;
+            Settings.widgetY = 230f;
+            Settings.Write();
+        }
+    }
 }

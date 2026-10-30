@@ -47,6 +47,7 @@
 	<WD_WidgetWealth>Богатство: {0}</WD_WidgetWealth>
 	<WD_WidgetDelta>За вчера: {0}</WD_WidgetDelta>
 	<WD_WidgetTooltip>Клик — открыть трекер богатства\nПКМ — перетащить</WD_WidgetTooltip>
+	<WD_ResetWidgetPosition>Сбросить позицию виджета</WD_ResetWidgetPosition>
 
 	<!-- Button -->
 	<WD_ButtonTip>Открыть трекер изменений богатства</WD_ButtonTip>
